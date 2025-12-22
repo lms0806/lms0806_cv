@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Github, ExternalLink, Code, ChevronDown, Monitor, Database, Layout } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, ExternalLink, Code, ChevronDown, Monitor, Database, Layout } from 'lucide-react';
 
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,6 +42,19 @@ export default function Portfolio() {
     { name: 'Contact', id: 'contact' },
   ];
 
+  // 프로젝트 데이터 배열
+  const projects = [
+    {
+      id: 1,
+      title: "Melog",
+      description: "이 프로젝트는 Rust와 axum으로 백엔드를 구성하고, TypeScript와 React.js로 프론트로 개발된 웹 애플리케이션입니다. 메이플스토리 open api를 활용하여 사용자의 메이플 캐릭터 정보를 보여줍니다.",
+      techStack: ["Rust", "Axum", "TypeScirpt", "React.js"],
+      githubLink: "https://github.com/lmsbin/melog",
+      demoLink: "#"
+    },
+  ];
+
+  // 경력 데이터 배열
   const experiences = [
     {
       id: 1,
@@ -177,7 +190,7 @@ export default function Portfolio() {
                 <div className="text-slate-400 font-medium">Years Experience</div>
               </div>
               <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors">
-                <div className="text-blue-400 text-4xl font-bold mb-2">10+</div>
+                <div className="text-blue-400 text-4xl font-bold mb-2">1</div>
                 <div className="text-slate-400 font-medium">Projects Completed</div>
               </div>
             </div>
@@ -215,7 +228,7 @@ export default function Portfolio() {
               </div>
               <h3 className="text-xl font-bold mb-4">Backend & Tools</h3>
               <div className="flex flex-wrap gap-2">
-                {['Node.js', 'Firebase', 'Git', 'MongoDB', 'Supabase', 'Vercel'].map(skill => (
+                {['Spring boot', 'Git', 'Mysql'].map(skill => (
                   <span key={skill} className="px-3 py-1 bg-slate-700 text-slate-300 text-sm rounded-full">
                     {skill}
                   </span>
@@ -230,7 +243,7 @@ export default function Portfolio() {
               </div>
               <h3 className="text-xl font-bold mb-4">Design & Collaboration</h3>
               <div className="flex flex-wrap gap-2">
-                {['Figma', 'Slack', 'Jira', 'Notion', 'Agile', 'UI/UX Basics'].map(skill => (
+                {['Slack', 'Notion'].map(skill => (
                   <span key={skill} className="px-3 py-1 bg-slate-700 text-slate-300 text-sm rounded-full">
                     {skill}
                   </span>
@@ -249,8 +262,8 @@ export default function Portfolio() {
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="bg-slate-900 rounded-xl overflow-hidden border border-slate-700 group hover:border-teal-500 transition-all">
+            {projects.map((project) => (
+              <div key={project.id} className="bg-slate-900 rounded-xl overflow-hidden border border-slate-700 group hover:border-teal-500 transition-all">
                 {/* Project Image Placeholder */}
                 <div className="h-48 bg-slate-800 flex items-center justify-center relative overflow-hidden">
                   <div className="absolute inset-0 bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors"></div>
@@ -260,23 +273,22 @@ export default function Portfolio() {
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <h3 className="text-xl font-bold text-white group-hover:text-teal-400 transition-colors">
-                      프로젝트 제목 {item}
+                      {project.title}
                     </h3>
                     <div className="flex gap-3">
-                      <a href="#" className="text-slate-400 hover:text-white transition-colors" title="GitHub Code">
+                      <a href={project.githubLink} className="text-slate-400 hover:text-white transition-colors" title="GitHub Code">
                         <Github size={20} />
                       </a>
-                      <a href="#" className="text-slate-400 hover:text-white transition-colors" title="Live Demo">
+                      <a href={project.demoLink} className="text-slate-400 hover:text-white transition-colors" title="Live Demo">
                         <ExternalLink size={20} />
                       </a>
                     </div>
                   </div>
                   <p className="text-slate-400 mb-6 text-sm line-clamp-3">
-                    이 프로젝트는 Rust와 axum으로 백엔드를 구성하고, TypeScript와 React.js로 프론트로 개발된 웹 애플리케이션입니다.
-                    메이플스토리 open api를 활용하여 사용자의 메이플 캐릭터 정보를 보여줍니다.
+                    {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {['React', 'Tailwind', 'Firebase'].map((tag) => (
+                    {project.techStack.map((tag) => (
                       <span key={tag} className="text-xs px-2 py-1 bg-slate-800 text-teal-400 rounded border border-slate-700">
                         {tag}
                       </span>
@@ -328,7 +340,7 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      {/* <section id="contact" className="py-20 bg-slate-800/50">
+      <section id="contact" className="py-20 bg-slate-800/50">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-8">
             <span className="border-b-4 border-teal-500 pb-2">Get In Touch</span>
@@ -338,7 +350,7 @@ export default function Portfolio() {
             편하게 연락주세요!
           </p>
 
-          <div className="bg-slate-900 p-8 rounded-2xl border border-slate-700 max-w-2xl mx-auto shadow-2xl">
+          {/* <div className="bg-slate-900 p-8 rounded-2xl border border-slate-700 max-w-2xl mx-auto shadow-2xl">
             <form className="space-y-6 text-left" onSubmit={(e) => e.preventDefault()}>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -358,22 +370,35 @@ export default function Portfolio() {
                 메시지 보내기
               </button>
             </form>
-          </div>
+          </div> */}
 
           <div className="flex justify-center space-x-8 mt-16">
-            <a href="#" className="flex flex-col items-center group">
+            <a
+              href="https://github.com/lms0806"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center group"
+            >
               <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-teal-500 transition-colors mb-2">
                 <Github size={24} className="text-slate-300 group-hover:text-white" />
               </div>
               <span className="text-sm text-slate-400 group-hover:text-teal-400">GitHub</span>
             </a>
-            <a href="#" className="flex flex-col items-center group">
+            <a
+              href="https://www.linkedin.com/in/minsu-lim-8b798b268/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center group"
+            >
               <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-blue-600 transition-colors mb-2">
                 <Linkedin size={24} className="text-slate-300 group-hover:text-white" />
               </div>
               <span className="text-sm text-slate-400 group-hover:text-blue-400">LinkedIn</span>
             </a>
-            <a href="#" className="flex flex-col items-center group">
+            <a
+              href="mailto:godmlzkf1@naver.com"
+              className="flex flex-col items-center group"
+            >
               <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-purple-500 transition-colors mb-2">
                 <Mail size={24} className="text-slate-300 group-hover:text-white" />
               </div>
@@ -381,7 +406,7 @@ export default function Portfolio() {
             </a>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Footer */}
       <footer className="py-8 bg-slate-950 border-t border-slate-900 text-center">
