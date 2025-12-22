@@ -58,7 +58,7 @@ export default function Portfolio() {
   const experiences = [
     {
       id: 1,
-      period: "2023.05 - 2025.02",
+      period: "2023.05 - 2025.06",
       role: "검색 엔진 개발자",
       company: "와이즈넛",
       descriptions: [
