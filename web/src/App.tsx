@@ -1,12 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Github, Linkedin, Mail, ExternalLink, Code, ChevronDown, Monitor, Database, Layout } from 'lucide-react';
 
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
@@ -22,8 +27,8 @@ export default function Portfolio() {
       if (current) setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -74,11 +79,11 @@ export default function Portfolio() {
       descriptions: [
         "미르 IP 게임 서버 개발"
       ]
-    }
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-teal-500 selection:text-white">
+    <div ref={containerRef} className="h-screen bg-slate-900 text-slate-100 font-sans selection:bg-teal-500 selection:text-white overflow-scroll snap-y snap-mandatory">
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/90 backdrop-blur-md shadow-lg py-4' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -130,7 +135,7 @@ export default function Portfolio() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+      <section id="home" className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden snap-start">
         {/* Background Elements */}
         <div className="absolute top-20 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
         <div className="absolute bottom-20 left-0 w-72 h-72 bg-teal-600/20 rounded-full blur-3xl -z-10"></div>
@@ -169,7 +174,7 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-slate-800/50">
+      <section id="about" className="min-h-screen flex flex-col justify-center py-20 bg-slate-800/50 snap-start">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-16 text-center">
             <span className="border-b-4 border-teal-500 pb-2">About Me</span>
@@ -199,7 +204,7 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20">
+      <section id="skills" className="min-h-screen flex flex-col justify-center py-20 snap-start">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-16 text-center">
             <span className="border-b-4 border-teal-500 pb-2">Tech Stack</span>
@@ -255,7 +260,7 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-slate-800/30">
+      <section id="projects" className="min-h-screen flex flex-col justify-center py-20 bg-slate-800/30 snap-start">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-16 text-center">
             <span className="border-b-4 border-teal-500 pb-2">Featured Projects</span>
@@ -302,30 +307,46 @@ export default function Portfolio() {
       </section>
 
       {/* Experience Section */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl font-bold mb-16 text-center">
+      <section className="min-h-screen flex flex-col justify-center py-20 snap-start">
+        <div className="max-w-7xl mx-auto px-6 w-full">
+          <h2 className="text-3xl font-bold mb-24 text-center">
             <span className="border-b-4 border-teal-500 pb-2">Work Experience</span>
           </h2>
 
-          <div className="space-y-12">
-            {experiences.map((item, index) => (
-              <div key={item.id} className="relative pl-8 md:pl-0">
-                {/* Timeline Line (Desktop) */}
-                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-700 transform -translate-x-1/2"></div>
+          <div className="relative">
+            {/* 그리드 컨테이너: 기본 1열, md 이상에서 2열 배치 */}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-x-8 gap-y-24">
+              {experiences.map((item) => (
+                <div key={item.id} className="relative group">
+                  {/* 가로 타임라인 선 (Desktop only) - 각 아이템마다 상단에 표시 */}
+                  <div className="hidden md:block absolute top-0 left-0 w-full h-0.5 bg-slate-700"></div>
 
-                <div className={`md:flex items-center justify-between ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                  <div className="hidden md:block w-5/12"></div>
+                  {/* Timeline Dot (Desktop) - 선 위에 위치 */}
+                  <div className="hidden md:block absolute top-0 left-1/2 w-4 h-4 bg-slate-900 border-2 border-teal-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 group-hover:bg-teal-500 group-hover:scale-125 transition-all z-10"></div>
 
-                  {/* Timeline Dot */}
-                  <div className="absolute left-0 md:left-1/2 w-8 h-8 bg-slate-900 border-4 border-teal-500 rounded-full transform -translate-x-1/2 flex items-center justify-center z-10">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                  {/* Period Label (Desktop) - 선 위에 띄움 */}
+                  <div className="hidden md:block absolute -top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+                    <span className="text-teal-400 font-bold bg-slate-900 px-3 py-1 rounded-full border border-slate-700">
+                      {item.period}
+                    </span>
                   </div>
 
-                  <div className="md:w-5/12 bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-teal-500/50 transition-colors">
-                    <span className="text-teal-400 text-sm font-bold mb-2 block">{item.period}</span>
-                    <h3 className="text-xl font-bold mb-1">{item.role}</h3>
-                    <h4 className="text-slate-400 mb-4 text-sm">{item.company}</h4>
+                  {/* 세로 타임라인 선 (Mobile only) - 왼쪽 정렬 */}
+                  <div className="md:hidden absolute left-0 top-0 bottom-0 w-px bg-slate-700 ml-4"></div>
+
+                  {/* Timeline Dot (Mobile) */}
+                  <div className="md:hidden absolute left-0 top-0 w-4 h-4 bg-slate-900 border-2 border-teal-500 rounded-full ml-[10px] mt-6 z-10"></div>
+
+                  {/* Content Card */}
+                  <div className="md:mt-12 ml-12 md:ml-0 bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-teal-500/50 transition-all hover:-translate-y-1 relative">
+                    {/* 모바일용 기간 표시 (카드 내부) */}
+                    <span className="md:hidden text-teal-400 text-sm font-bold mb-2 block">{item.period}</span>
+
+                    {/* 데스크탑용 연결 화살표 (삼각형) */}
+                    <div className="hidden md:block absolute -top-2 left-1/2 w-4 h-4 bg-slate-800 border-l border-t border-slate-700 transform -translate-x-1/2 rotate-45"></div>
+
+                    <h3 className="text-xl font-bold mb-1 text-white">{item.role}</h3>
+                    <h4 className="text-slate-400 mb-4 text-sm font-medium">{item.company}</h4>
                     <ul className="list-disc list-inside text-slate-300 text-sm space-y-2 marker:text-teal-500">
                       {item.descriptions.map((desc, i) => (
                         <li key={i}>{desc}</li>
@@ -333,14 +354,14 @@ export default function Portfolio() {
                     </ul>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-slate-800/50">
+      <section id="contact" className="min-h-screen flex flex-col justify-center py-20 bg-slate-800/50 snap-start">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-8">
             <span className="border-b-4 border-teal-500 pb-2">Get In Touch</span>
@@ -409,7 +430,7 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-slate-950 border-t border-slate-900 text-center">
+      <footer className="py-8 bg-slate-950 border-t border-slate-900 text-center snap-start">
         <p className="text-slate-500 text-sm">
           © 2024 Dev.Portfolio. Built with React & Tailwind CSS.
         </p>
