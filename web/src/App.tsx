@@ -91,10 +91,9 @@ export default function Portfolio() {
       detailedDescription: `
         Melog는 메이플스토리 유저들을 위한 전적 검색 및 캐릭터 정보 조회 서비스입니다. 
         기존 서비스들의 느린 응답 속도를 개선하기 위해 Rust(Axum)를 도입하여 백엔드 성능을 최적화했습니다.
-        단순한 정보 조회를 넘어, 사용자의 성장을 시각화하여 보여주는 그래프 기능과 
-        유저 간 커뮤니티 기능을 제공하는 것을 목표로 개발되었습니다.
+        단순한 정보 조회를 넘어, 사용자의 성장을 시각화하여 보여주는 그래프 기능을 제공하는 것을 목표로 개발되었습니다.
       `,
-      techStack: ["Rust", "Axum", "TypeScript", "React.js", "Tailwind CSS"],
+      techStack: ["Rust", "Axum", "TypeScript", "React.js", "Vite", "Tailwind CSS"],
       features: [
         "Nexon Open API 연동을 통한 실시간 캐릭터 정보 조회",
         "Rust의 비동기 런타임(Tokio)을 활용한 고성능 API 서버 구축",
