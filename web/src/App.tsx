@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Github, Linkedin, Mail, ExternalLink, Code, ChevronDown, Monitor, Database, Layout, Calendar, CheckCircle2 } from 'lucide-react';
+import melogImage from "./images/melog.jpg";
 
-// 프로젝트 데이터 타입 정의 (TypeScript 사용 시 유용, 여기선 구조 참조용)
-// id, title, description, detailedDescription, techStack, githubLink, demoLink, features, period
-
+// 1. 프로젝트 데이터의 구조를 정의하는 인터페이스 생성
 interface Project {
   id: number;
   title: string;
@@ -14,6 +13,7 @@ interface Project {
   features: string[];
   githubLink: string;
   demoLink: string;
+  image?: string; // 프로젝트 이미지 URL (선택적)
 }
 
 export default function Portfolio() {
@@ -21,7 +21,7 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
 
-  // 선택된 프로젝트 상태 관리 (null이면 목록 보기, 값이 있으면 상세 보기)
+  // 2. useState에 'any' 대신 구체적인 'Project' 타입 지정
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,7 +39,6 @@ export default function Portfolio() {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // 스냅 스크롤이므로 뷰포트 중앙에 가까운 섹션을 활성화
           return rect.top >= -window.innerHeight / 2 && rect.top < window.innerHeight / 2;
         }
         return false;
@@ -82,8 +81,8 @@ export default function Portfolio() {
     { name: 'Contact', id: 'contact' },
   ];
 
-  // 프로젝트 데이터 배열 (상세 정보 추가됨)
-  const projects = [
+  // 프로젝트 데이터 배열 (타입 안정성 확보)
+  const projects: Project[] = [
     {
       id: 1,
       title: "Melog",
@@ -103,7 +102,8 @@ export default function Portfolio() {
         "반응형 디자인을 적용하여 모바일 및 데스크탑 환경 지원"
       ],
       githubLink: "https://github.com/lmsbin/melog",
-      demoLink: "#"
+      demoLink: "#",
+      image: melogImage,
     }
   ];
 
@@ -214,11 +214,21 @@ export default function Portfolio() {
 
             {/* Scrollable Body */}
             <div className="p-6 overflow-y-auto custom-scrollbar">
-              {/* Image Area (Placeholder) */}
+              {/* Image Area */}
               <div className="w-full h-64 md:h-80 bg-slate-800 rounded-xl mb-8 flex items-center justify-center border border-slate-700 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
-                <Code className="text-slate-600 w-20 h-20" />
-                <span className="absolute bottom-4 right-4 text-xs text-slate-500 bg-slate-900/80 px-2 py-1 rounded">Project Preview Image</span>
+                {selectedProject.image ? (
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+                    <Code className="text-slate-600 w-20 h-20" />
+                    <span className="absolute bottom-4 right-4 text-xs text-slate-500 bg-slate-900/80 px-2 py-1 rounded">No Image Available</span>
+                  </>
+                )}
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
@@ -240,7 +250,7 @@ export default function Portfolio() {
                       Key Features
                     </h3>
                     <ul className="space-y-3">
-                      {selectedProject.features?.map((feature: string, idx: number) => (
+                      {selectedProject.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-3 text-slate-300">
                           <span className="mt-1.5 w-1.5 h-1.5 bg-teal-500 rounded-full flex-shrink-0"></span>
                           <span>{feature}</span>
@@ -255,7 +265,7 @@ export default function Portfolio() {
                   <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
                     <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Tech Stack</h4>
                     <div className="flex flex-wrap gap-2">
-                      {selectedProject.techStack.map((tech: string) => (
+                      {selectedProject.techStack.map((tech) => (
                         <span key={tech} className="px-3 py-1 bg-slate-800 text-teal-400 text-sm rounded-full border border-slate-600">
                           {tech}
                         </span>
@@ -343,9 +353,9 @@ export default function Portfolio() {
               끊임없이 성장하는 개발자입니다.
             </h3>
             <p className="text-slate-300 leading-relaxed text-base md:text-lg break-keep px-4">
-              시간과 메모리의 효율성을 중요시하며,<br />빠르고 안전한 프로그램을 만드는데 깊은 관심을 가지고 있습니다.
-              <br /><br />
-              새로운 기술을 배우는 것을 두려워하지 않으며,<br />팀원들과의 소통을 통해 더 나은 결과를 만들어내는 것을 즐깁니다.
+              시간과 메모리의 효율성을 중요시하며, 빠르고 안전한 프로그램을 만드는데 깊은 관심을 가지고 있습니다.
+              <br />
+              새로운 기술을 배우는 것을 두려워하지 않으며, 팀원들과의 소통을 통해 더 나은 결과를 만들어내는 것을 즐깁니다.
             </p>
 
             <div className="grid grid-cols-2 gap-6 pt-4 max-w-lg mx-auto">
@@ -428,10 +438,16 @@ export default function Portfolio() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
               <div key={project.id} className="bg-slate-900 rounded-xl overflow-hidden border border-slate-700 group hover:border-teal-500 transition-all flex flex-col h-full">
-                {/* Project Image Placeholder */}
+                {/* Project Image Placeholder - 카드 목록에서는 이미지 대신 아이콘 또는 썸네일 표시 */}
                 <div className="h-48 bg-slate-800 flex items-center justify-center relative overflow-hidden flex-shrink-0">
-                  <div className="absolute inset-0 bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors"></div>
-                  <Code className="text-slate-600 group-hover:text-teal-400 transition-colors transform group-hover:scale-110 duration-500" size={48} />
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  ) : (
+                    <>
+                      <div className="absolute inset-0 bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors"></div>
+                      <Code className="text-slate-600 group-hover:text-teal-400 transition-colors transform group-hover:scale-110 duration-500" size={48} />
+                    </>
+                  )}
                 </div>
 
                 <div className="p-6 flex flex-col flex-grow">
