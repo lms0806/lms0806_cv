@@ -342,9 +342,10 @@ export default function Portfolio() {
             <h3 className="text-2xl md:text-3xl font-bold text-teal-400">
               끊임없이 성장하는 개발자입니다.
             </h3>
-            <p className="text-slate-300 leading-relaxed text-lg break-keep">
-              시간과 메모리의 효율성을 중요시하며, 빠르고 안전한 프로그램을 만드는데 깊은 관심을 가지고 있습니다.<br className="hidden md:block" />
-              새로운 기술을 배우는 것을 두려워하지 않으며, 팀원들과의 소통을 통해 더 나은 결과를 만들어내는 것을 즐깁니다.
+            <p className="text-slate-300 leading-relaxed text-base md:text-lg break-keep px-4">
+              시간과 메모리의 효율성을 중요시하며,<br />빠르고 안전한 프로그램을 만드는데 깊은 관심을 가지고 있습니다.
+              <br /><br />
+              새로운 기술을 배우는 것을 두려워하지 않으며,<br />팀원들과의 소통을 통해 더 나은 결과를 만들어내는 것을 즐깁니다.
             </p>
 
             <div className="grid grid-cols-2 gap-6 pt-4 max-w-lg mx-auto">
