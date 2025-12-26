@@ -1,25 +1,6 @@
+import { experiences } from "../data/PortfolioData"
+
 export default function Experience() {
-    const experiences = [
-        {
-            id: 1,
-            period: "2023.05 ~ 2025.06",
-            role: "검색 엔진 개발자",
-            company: "와이즈넛",
-            descriptions: [
-                "다양한 OS에서 활용가능한 검색 엔진 개발",
-                "대용량 데이터 처리 및 인덱싱 성능 개선"
-            ]
-        },
-        {
-            id: 2,
-            period: "2025.07 ~",
-            role: "게임 서버 개발자",
-            company: "위메이드 넥스트",
-            descriptions: [
-                "미르 IP 게임 서버 개발"
-            ]
-        },
-    ];
 
     return (
         <div>

@@ -1,25 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
-import Projects from './pages/projects';
+import Projects from './pages/Projects';
 import Experience from './pages/Experience';
 import Contact from './pages/Contact';
 import Skills from './pages/Skills';
 import About from './pages/About';
 import Hero from "./pages/Hero";
-
-// 1. 프로젝트 데이터의 구조를 정의하는 인터페이스 생성
-interface Project {
-  id: number;
-  title: string;
-  period: string;
-  description: string;
-  detailedDescription: string;
-  techStack: string[];
-  features: string[];
-  githubLink: string;
-  demoLink: string;
-  image?: string; // 프로젝트 이미지 URL (선택적)
-}
+import { navLinks, type Project } from "./data/PortfolioData"
 
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,15 +42,6 @@ export default function Portfolio() {
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // ESC 키로 모달 닫기
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedProject(null);
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
-
   const scrollToSection = (id: string) => {
     setIsMenuOpen(false);
     // 상세 페이지가 열려있다면 닫고 이동
@@ -77,14 +55,6 @@ export default function Portfolio() {
       }
     }, 100);
   };
-
-  const navLinks = [
-    { name: 'Home', id: 'home' },
-    { name: 'About', id: 'about' },
-    { name: 'Skills', id: 'skills' },
-    { name: 'Projects', id: 'projects' },
-    { name: 'Contact', id: 'contact' },
-  ];
 
   return (
     <div

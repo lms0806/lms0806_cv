@@ -1,20 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Github, ExternalLink, Code, Layout, Calendar, CheckCircle2 } from 'lucide-react';
-import melogImage from "../images/melog.jpg";
+import { projects, type Project } from "../data/PortfolioData";
 
-// 1. 프로젝트 데이터의 구조를 정의하는 인터페이스 생성
-interface Project {
-    id: number;
-    title: string;
-    period: string;
-    description: string;
-    detailedDescription: string;
-    techStack: string[];
-    features: string[];
-    githubLink: string;
-    demoLink: string;
-    image?: string; // 프로젝트 이미지 URL (선택적)
-}
 
 export default function Projects() {
     // 2. useState에 'any' 대신 구체적인 'Project' 타입 지정
@@ -28,31 +15,6 @@ export default function Projects() {
         window.addEventListener('keydown', handleEsc);
         return () => window.removeEventListener('keydown', handleEsc);
     }, []);
-
-    // 프로젝트 데이터 배열 (타입 안정성 확보)
-    const projects: Project[] = [
-        {
-            id: 1,
-            title: "Melog",
-            period: "2024.01 - 2024.03",
-            description: "Rust와 Axum으로 구축된 백엔드와 React 기반의 메이플스토리 정보 검색 서비스입니다.",
-            detailedDescription: `
-        Melog는 메이플스토리 유저들을 위한 전적 검색 및 캐릭터 정보 조회 서비스입니다. 
-        기존 서비스들의 느린 응답 속도를 개선하기 위해 Rust(Axum)를 도입하여 백엔드 성능을 최적화했습니다.
-        단순한 정보 조회를 넘어, 사용자의 성장을 시각화하여 보여주는 그래프 기능을 제공하는 것을 목표로 개발되었습니다.
-      `,
-            techStack: ["Rust", "Axum", "TypeScript", "React.js", "Vite", "Tailwind CSS"],
-            features: [
-                "Nexon Open API 연동을 통한 실시간 캐릭터 정보 조회",
-                "Rust의 비동기 런타임(Tokio)을 활용한 고성능 API 서버 구축",
-                "React Query를 이용한 서버 상태 관리 및 캐싱 전략 수립",
-                "반응형 디자인을 적용하여 모바일 및 데스크탑 환경 지원"
-            ],
-            githubLink: "https://github.com/lmsbin/melog",
-            demoLink: "#",
-            image: melogImage,
-        }
-    ];
 
     return (
         <div>
