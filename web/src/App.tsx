@@ -7,6 +7,7 @@ import About from './pages/About';
 import Hero from "./pages/Hero";
 import { type Project } from "./data/PortfolioData"
 import Navigation from './pages/Navigation';
+import Footer from './pages/Footer';
 
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,13 +76,7 @@ export default function Portfolio() {
       <Projects />
       <Experience />
       <Contact />
-
-      {/* Footer */}
-      <footer className="py-8 bg-slate-950 border-t border-slate-900 text-center snap-start">
-        <p className="text-slate-500 text-sm">
-          © 2024 Dev.Portfolio. Built with React & Tailwind CSS.
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }
