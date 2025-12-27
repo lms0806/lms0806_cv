@@ -21,6 +21,37 @@ export interface Experience {
     descriptions: string[];
 }
 
+export interface Education {
+    id: number;
+    period: string;
+    institution: string;
+    degree: string;
+    major: string;
+}
+
+export interface Certificate {
+    id: number;
+    date: string;
+    name: string;
+    issuer: string;
+}
+
+export interface Activity {
+    id: number;
+    period: string;
+    name: string;
+    role: string;
+    description?: string;
+}
+
+export interface Award {
+    id: number;
+    name: string;
+    date: string;
+    organizer: string;
+    grade: string;
+}
+
 export const navLinks = [
     { name: 'Home', id: 'home' },
     { name: 'About', id: 'about' },
@@ -29,7 +60,7 @@ export const navLinks = [
     { name: 'Contact', id: 'contact' },
 ];
 
-// 프로젝트 데이터 배열 (타입 안정성 확보)
+// 프로젝트 데이터
 export const projects: Project[] = [
     {
         id: 1,
@@ -54,6 +85,7 @@ export const projects: Project[] = [
     }
 ];
 
+// 경력
 export const experiences: Experience[] = [
     {
         id: 1,
@@ -74,4 +106,75 @@ export const experiences: Experience[] = [
             "미르 IP 게임 서버 개발"
         ]
     },
+];
+
+// 교육
+export const educations: Education[] = [
+    {
+        id: 1,
+        period: "2016.03 - 2022.02",
+        institution: "서원대학교",
+        major: "컴퓨터공학과",
+        degree: "학사 졸업"
+    }
+];
+
+// 자격증 데이터
+export const certificates: Certificate[] = [
+    {
+        id: 1,
+        date: "2022.06",
+        name: "정보처리기사",
+        issuer: "한국산업인력공단"
+    }
+];
+
+// 수상 내역 데이터
+export const awards: Award[] = [
+    {
+        id: 1,
+        name: "2019 서원코딩페스티벌",
+        date: "2019.11.15",
+        organizer: "서원대학교",
+        grade: "3등"
+    },
+    {
+        id: 2,
+        name: "2020 서원코딩페스티벌",
+        date: "2020.11.20",
+        organizer: "서원대학교",
+        grade: "대상"
+    },
+    {
+        id: 3,
+        name: "2021 서원코딩페스티벌",
+        date: "2021.07.16",
+        organizer: "서원대학교",
+        grade: "최우수상"
+    },
+    {
+        id: 4,
+        name: "2021 2차 서원코딩페스티벌",
+        date: "2021.11.19",
+        organizer: "서원대학교",
+        grade: "대상"
+    },
+    {
+        id: 5,
+        name: "2022 Woori 코딩 페스티벌",
+        date: "2022.09.23",
+        organizer: "우리FIS",
+        grade: "특별상"
+    }
+]
+
+// 외부활동 데이터
+export const activities: Activity[] = [
+    {
+        id: 1,
+        period: "2024.03 ~",
+        name: "블로그 스터디",
+        role: "운영진",
+        description: "주 1회 개발 관련 블로그 포스팅"
+    }
 ];
