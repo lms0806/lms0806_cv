@@ -176,5 +176,12 @@ export const activities: Activity[] = [
         name: "블로그 스터디",
         role: "운영진",
         description: "주 1회 개발 관련 블로그 포스팅"
+    },
+    {
+        id: 2,
+        period: "2022.05 ~",
+        name: "백준 온라인 저지 문제 출제 위원",
+        role: "출제진",
+        description: "11개의 대회에서 문제 출제 및 검수"
     }
 ];
