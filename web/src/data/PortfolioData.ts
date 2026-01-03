@@ -82,6 +82,24 @@ export const projects: Project[] = [
         githubLink: "https://github.com/lmsbin/melog",
         demoLink: "#",
         image: melogImage,
+    },
+    {
+        id: 2,
+        title: "TUI_VEDIO",
+        period: "2026.01",
+        description: "youtube영상을 터미널에서 보여주는 프로그램입니다.",
+        detailedDescription: `
+        Rust의 tui 라이브러리인 ratatui를 활용하여 구성하였습니다.
+        이미지와 영상을 다루기 위하여 ffmpeg와 yt-dlp를 활용하였습니다.
+        short영상을 아스키코드로 표현하여 터미널에 보여주기 위하여 시작한 프로젝트입니다.
+      `,
+        techStack: ["Rust", "Ratatui"],
+        features: [
+            "youtube 영상 링크 입력시, 해당 영상을 터미널에서 표시",
+            "다채로운 표현을 위하여 아스키 코드 여러개 사용"
+        ],
+        githubLink: "https://github.com/lms0806/tui_video",
+        demoLink: "#",
     }
 ];
 
