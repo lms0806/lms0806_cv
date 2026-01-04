@@ -100,6 +100,22 @@ export const projects: Project[] = [
         ],
         githubLink: "https://github.com/lms0806/tui_video",
         demoLink: "#",
+    },
+    {
+        id: 2,
+        title: "MaplyStory_Overlay",
+        period: "2026.01 -",
+        description: "메이플스토리 화면 위에 정보를 표시해주는 프로그램입니다.",
+        detailedDescription: `
+        Rust와 windows 라이브러리를 활용하여 구현하였습니다.
+        창모드 해상도에 따라 화면 중앙 상단에 정보를 표시하는 방식으로 진행하였습니다.
+      `,
+        techStack: ["Rust", "Winodws", "MapleStory Open Api"],
+        features: [
+            "게임 화면 상단에 메이플스토리 닉네임을 입력하여 해당 닉네임에 대한 정보를 불러오는 방식으로 구현되었습니다."
+        ],
+        githubLink: "https://github.com/lms0806/maplestory_overlay",
+        demoLink: "#",
     }
 ];
 
